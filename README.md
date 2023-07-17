@@ -46,8 +46,8 @@ To set up and run MovieHub locally, you will need the following tools:
  
 ## Screenshots
 <p>
-  <img src="image.png" alt="Desktop Screenshot" height="250">
-  <img src="mobile.png" alt="Mobile Screenshot" height="250">
+  <img src="image/README/image-1.png" alt="Desktop Screenshot" height="250">
+  <img src="image/README/mobile-1.png" alt="Mobile Screenshot" height="250">
 </p>
 
 ## Contributing
