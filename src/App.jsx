@@ -1,54 +1,48 @@
-import {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
 import MovieCard from "./MovieCard";
-
+import SearchIcon from "./search.svg";
 import "./App.css";
-import Searchicon from "./search.svg";
 
-const API_URL = "http://www.omdbapi.com/?apikey=c0fc28e7";
-
-const movie1 = {
-  Title: "Batman v Superman: Dawn of Justice",
-  Year: "2016",
-  imdbID: "tt2975590",
-  Type: "movie",
-  Poster:
-    "https://m.media-amazon.com/images/M/MV5BYThjYzcyYzItNTVjNy00NDk0LTgwMWQtYjMwNmNlNWJhMzMyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
-};
+const API_URL = "http://www.omdbapi.com?apikey=b6003d8a";
 
 const App = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    searchMovies("Batman");
+  }, []);
 
   const searchMovies = async (title) => {
     const response = await fetch(`${API_URL}&s=${title}`);
     const data = await response.json();
+
     setMovies(data.Search);
   };
 
-  useEffect(() => {
-    searchMovies('Batman');
-  }, []);
-
   return (
-    <div>
-      <h1>MovieHub</h1>
+    <div className="app">
+      <h1>MovieLand</h1>
 
       <div className="search">
         <input
-          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search for movies"
-          onChange={() => {}}
         />
-        <img src={Searchicon} alt="search" onClick={() => {}} />
+        <img
+          src={SearchIcon}
+          alt="search"
+          onClick={() => searchMovies(searchTerm)}
+        />
       </div>
 
-      {movies.length > 0 ? (
+      {movies?.length > 0 ? (
         <div className="container">
-          {
-            movies.map((movie) => (
-              <MovieCard movie={movie} />
-            ))
-          }
+          {movies.map((movie) => (
+            <MovieCard movie={movie} />
+          ))}
         </div>
       ) : (
         <div className="empty">
@@ -57,6 +51,6 @@ const App = () => {
       )}
     </div>
   );
-}
+};
 
 export default App;
